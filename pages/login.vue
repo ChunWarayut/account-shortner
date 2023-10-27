@@ -26,7 +26,7 @@ const handleSubmit = async (e: { preventDefault: () => void; }) => {
 <template>
   <div className="w-100 p-5 overflow-x-auto bg-custom">
 
-    <div class="min-h-screen text-gray-900 flex justify-center">
+    <div class="h-[95vh] text-gray-900 flex justify-center">
       <div class="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
         <div class="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
           <div>
