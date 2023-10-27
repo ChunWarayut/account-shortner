@@ -37,9 +37,11 @@
             <dt class="text-sm font-medium leading-6 text-gray-900">Attachments</dt>
             <dd class="mt-2 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
               <ul role="list" class="divide-y divide-gray-100 rounded-md border border-gray-200">
-                <li v-for="({ shortUrl }) in user?.customer?.urls" @click="copySign(shortUrl)"
+                <li v-for="({ shortUrl, clicks }) in user?.customer?.urls" @click="copySign(shortUrl)"
                   class="flex items-center justify-between py-4 pl-4 pr-5 text-sm leading-6">
                   <div class="flex w-0 flex-1 items-center">
+                    <CursorArrowRaysIcon class="h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
+                    <span class="px-2 flex-shrink-0 text-gray-400">{{ clicks }} clicks</span>
                     <LinkIcon class="h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
                     <div class="ml-4 flex min-w-0 flex-1 gap-2">
                       <a :href="shortUrl" target="_blank" class="truncate font-medium">{{ shortUrl }}</a>
@@ -59,7 +61,7 @@
 </template>
 
 <script setup>
-import { LinkIcon, ClipboardDocumentListIcon } from '@heroicons/vue/20/solid'
+import { LinkIcon, ClipboardDocumentListIcon, CursorArrowRaysIcon } from '@heroicons/vue/20/solid'
 
 import { storeToRefs } from 'pinia';
 import { useAuthStore } from '~/store/auth';

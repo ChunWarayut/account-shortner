@@ -3,8 +3,9 @@ import { useAuthStore } from '~/store/auth';
 import { jwtDecode } from "jwt-decode";
 
 export default defineNuxtRouteMiddleware((to) => {
-  const { authenticated, user } = storeToRefs(useAuthStore()); // make authenticated state reactive
+  const { authenticated, user, errorMessage } = storeToRefs(useAuthStore()); // make authenticated state reactive
   const token = useCookie('token'); // get token from cookies
+  errorMessage.value = null;
 
   if (token.value) {
     // check if value exists
