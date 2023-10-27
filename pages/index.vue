@@ -1,106 +1,46 @@
-<script setup lang="ts">
-const username = ref('')
-const password = ref('')
-const handleSubmit = (e: { preventDefault: () => void; }) => {
-  e.preventDefault();
-  console.log(username.value, password.value);
-
-  console.log('submit');
-}
-</script>
 <template>
-  <div className="w-100 p-5 overflow-x-auto">
-
-    <div class="min-h-screen text-gray-900 flex justify-center">
-      <div class="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
-        <div class="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
-          <div>
-            <!-- <img src="/baner.png" class="w-32 mx-auto" /> -->
-          </div>
-          <div class="mt-12 flex flex-col items-center">
-            <h1 class="text-2xl xl:text-3xl font-extrabold">
-              ลงชื่อเข้าใช้งาน
-            </h1>
-
-            <form className="w-full" @submit="handleSubmit">
-              <div class="w-full flex-1 mt-8">
-
-                <div class="mx-auto max-w-xs">
-                  <input
-                    class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
-                    id="username" name="username" type="text" v-model="username" placeholder="username" />
-                  <input
-                    class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-                    id="password" name="password" type="password" v-model="password" placeholder="Password" />
-                  <button
-                    class="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
-                    <svg class="w-6 h-6 -ml-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                      stroke-linejoin="round">
-                      <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
-                      <circle cx="8.5" cy="7" r="4" />
-                      <path d="M20 8v6M23 11h-6" />
-                    </svg>
-                    <span class="ml-3">
-                      ลงชื่อเข้าใช้งาน
-                    </span>
-                  </button>
-                  <p class="mt-6 text-xs text-gray-600 text-center">
-                    I agree to abide by Warayut Tekrathok (Chun)
-                    <a href="#" class="border-b border-gray-500 border-dotted">
-                      Terms of Service
-                    </a>
-                    and its
-                    <a href="#" class="border-b border-gray-500 border-dotted">
-                      Privacy Policy
-                    </a>
-                  </p>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-        <div class="flex-1 bg-indigo-100 text-center hidden lg:flex">
-          <div class="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat"
-            style="background-image: url('https://storage.googleapis.com/devitary-image-host.appspot.com/15848031292911696601-undraw_designer_life_w96d.svg');">
-          </div>
-        </div>
-      </div>
+  <div class="container mx-auto pt-10">
+    <div class="px-4 sm:px-0">
+      <h3 class="text-base font-semibold leading-7 text-gray-900">Personal Information</h3>
+      <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Personal details and application.</p>
     </div>
-
+    <div class="mt-6 border-t border-gray-100">
+      <dl class="divide-y divide-gray-100">
+        <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+          <dt class="text-sm font-medium leading-6 text-gray-900">ชื่อ - นามสกุล</dt>
+          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">Margot Foster</dd>
+        </div>
+        <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+          <dt class="text-sm font-medium leading-6 text-gray-900">สถานะ</dt>
+          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">Agents and Partners</dd>
+        </div>
+        <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+          <dt class="text-sm font-medium leading-6 text-gray-900">เบอร์โทรศัพท์</dt>
+          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">091-813-6426</dd>
+        </div>
+        <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+          <dt class="text-sm font-medium leading-6 text-gray-900">Attachments</dt>
+          <dd class="mt-2 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+            <ul role="list" class="divide-y divide-gray-100 rounded-md border border-gray-200">
+              <li class="flex items-center justify-between py-4 pl-4 pr-5 text-sm leading-6">
+                <div class="flex w-0 flex-1 items-center">
+                  <LinkIcon class="h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
+                  <div class="ml-4 flex min-w-0 flex-1 gap-2">
+                    <span class="truncate font-medium">coverletter_back_end_developer.pdf</span>
+                  </div>
+                </div>
+                <div class="ml-4 flex-shrink-0">
+                  <ClipboardDocumentListIcon class="h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
+                </div>
+              </li>
+            </ul>
+          </dd>
+        </div>
+      </dl>
+    </div>
   </div>
 </template>
 
-<style lang="postcss" scoped>
-.badge {
-  @apply inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700;
-
-  &:hover {
-    @apply bg-gray-300;
-  }
-}
-
-body {
-  background: #c9ffbf;
-  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right,
-      #ffafbd,
-      #c9ffbf);
-  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right,
-      #ffafbd,
-      #c9ffbf);
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-}
-
-.circle-dark {
-
-  box-sizing: initial;
-
-  background: #fff;
-  border: 0.1em solid #666;
-  color: #666;
-  text-align: center;
-  border-radius: 50%;
-
-}
-</style>
+<script setup>
+import { LinkIcon, ClipboardDocumentListIcon } from '@heroicons/vue/20/solid'
+</script>
