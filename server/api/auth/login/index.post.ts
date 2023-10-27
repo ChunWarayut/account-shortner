@@ -33,7 +33,7 @@ export default defineEventHandler(async (event) => {
 
   if (isMatch) {
     const { password, ...data } = isMatch;
-    const token = jwt.sign(data, config.public.secret, {
+    const token = jwt.sign(data, config.public.secret || 'B845C1AAA43857DABE8124CE69D1B', {
       expiresIn: "1 days",
     });
     return { ...data, token };
