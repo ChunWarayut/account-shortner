@@ -15,7 +15,7 @@ export const useAuthStore = defineStore("auth", {
       // useFetch from nuxt 3
       this.loading = true;
       this.errorMessage = null;
-      const { data, pending }: any = await useFetch("/api/auth/login", {
+      const { data, pending }: any = await useFetch("https://my-account.thpsd.com/api/auth/login", {
         method: "post",
         headers: { "Content-Type": "application/json" },
         body: {

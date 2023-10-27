@@ -69,13 +69,11 @@ const router = useRouter();
 const { logUserOut } = useAuthStore();
 const { authenticated, user } = storeToRefs(useAuthStore()); // make authenticated state reactive
 
-console.log(user.value);
 const logout = () => {
   logUserOut();
   router.push('/login');
 };
 const copySign = (text) => {
-  //btw writeText() returns a promise so you could utilize that somehow if you want
   navigator.clipboard.writeText(text)
 }
 </script>
