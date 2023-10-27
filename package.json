@@ -13,7 +13,9 @@
     "@nuxt/devtools": "latest",
     "@nuxtjs/google-fonts": "^3.0.2",
     "@nuxtjs/tailwindcss": "^6.8.1",
+    "@types/jsonwebtoken": "^9.0.4",
     "nuxt": "^3.8.0",
+    "prisma": "5.5.2",
     "sass": "^1.69.5",
     "vue": "^3.3.7",
     "vue-router": "^4.2.5"
@@ -21,7 +23,10 @@
   "dependencies": {
     "@heroicons/vue": "^2.0.18",
     "@pinia/nuxt": "^0.5.1",
+    "@prisma/client": "5.5.2",
     "axios": "^1.6.0",
+    "jsonwebtoken": "^9.0.2",
+    "jwt-decode": "^4.0.0",
     "pinia": "^2.1.7",
     "sweetalert2": "^11.7.32"
   }

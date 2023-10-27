@@ -1,0 +1,84 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.String
+  access_token      String? @db.String
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.String
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  sessionToken String   @unique
+  userId       String   @db.ObjectId
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  name          String?
+  email         String?   @unique
+  username      String?   @unique
+  emailVerified DateTime?
+  password      String?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  customer      customer?
+}
+
+model VerificationToken {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model agent {
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  idAgent   String @unique
+  userAgent String @unique
+}
+
+model customer {
+  id           String @id @default(auto()) @map("_id") @db.ObjectId
+  userCustomer String @unique
+  tel          String
+  urls         urls[]
+  user         User   @relation(fields: [username], references: [username])
+  username     String @unique
+}
+
+model urls {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  v          Int       @map("__v")
+  clicks     Int
+  date       String
+  origUrl    String    @unique
+  shortUrl   String
+  urlId      String    @unique
+  customer   customer? @relation(fields: [customerId], references: [id])
+  customerId String?   @db.ObjectId
+}

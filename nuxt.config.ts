@@ -1,7 +1,19 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  devtools: { enabled: true },
-  modules: ["@nuxtjs/tailwindcss", "@nuxtjs/google-fonts", "@pinia/nuxt"],
+  devtools: { enabled: false },
+  modules: [
+    "@nuxtjs/tailwindcss",
+    "@nuxtjs/google-fonts",
+    [
+      "@pinia/nuxt",
+      {
+        autoImports: [
+          // automatically imports `defineStore`
+          "defineStore",
+        ],
+      },
+    ],
+  ],
   googleFonts: {
     display: "swap", // 'auto' | 'block' | 'swap' | 'fallback' | 'optional'
     families: {
@@ -20,5 +32,10 @@ export default defineNuxtConfig({
     config: {},
     injectPosition: "first",
     viewer: true,
+  },
+  runtimeConfig: {
+    public: {
+      secret: process.env.SECRET,
+    },
   },
 });
