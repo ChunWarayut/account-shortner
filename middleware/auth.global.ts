@@ -1,8 +1,6 @@
 import { storeToRefs } from "pinia";
 import { useAuthStore } from "~/store/auth";
 import { jwtDecode } from "jwt-decode";
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
 
 export default defineNuxtRouteMiddleware(async (to) => {
   const { authenticated, user, errorMessage } = storeToRefs(useAuthStore()); // make authenticated state reactive
