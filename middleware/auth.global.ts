@@ -1,10 +1,12 @@
-import { storeToRefs } from 'pinia';
-import { useAuthStore } from '~/store/auth';
+import { storeToRefs } from "pinia";
+import { useAuthStore } from "~/store/auth";
 import { jwtDecode } from "jwt-decode";
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
 
-export default defineNuxtRouteMiddleware((to) => {
+export default defineNuxtRouteMiddleware(async (to) => {
   const { authenticated, user, errorMessage } = storeToRefs(useAuthStore()); // make authenticated state reactive
-  const token = useCookie('token'); // get token from cookies
+  const token = useCookie("token"); // get token from cookies
   errorMessage.value = null;
 
   if (token.value) {
@@ -12,17 +14,26 @@ export default defineNuxtRouteMiddleware((to) => {
     // todo verify if token is valid, before updating the state
     authenticated.value = true; // update the state to authenticated
     const decoded = jwtDecode(token.value);
-    user.value = decoded; // update the state to user
+
+    const { data, pending }: any = await useFetch(
+      "http://localhost:3000/api/me/" + decoded.username,
+      {
+        method: "post",
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+    
+    user.value = { ...decoded, ...data.value }; // update the state to user
   }
 
   // if token exists and url is /login redirect to homepage
-  if (token.value && to?.name === 'login') {
-    return navigateTo('/');
+  if (token.value && to?.name === "login") {
+    return navigateTo("/");
   }
 
   // if token doesn't exist redirect to log in
-  if (!token.value && to?.name !== 'login') {
+  if (!token.value && to?.name !== "login") {
     abortNavigation();
-    return navigateTo('/login');
+    return navigateTo("/login");
   }
 });
