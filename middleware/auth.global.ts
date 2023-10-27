@@ -16,7 +16,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
     const decoded = jwtDecode(token.value);
 
     const { data, pending }: any = await useFetch(
-      "http://localhost:3000/api/me/" + decoded.username,
+      "https://my-account.thpsd.com/api/me/" + decoded.username,
       {
         method: "post",
         headers: { "Content-Type": "application/json" },
