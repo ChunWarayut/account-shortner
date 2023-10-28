@@ -4,6 +4,7 @@ export default defineNuxtConfig({
   modules: [
     "@nuxtjs/tailwindcss",
     "@nuxtjs/google-fonts",
+    "nuxt-snackbar",
     [
       "@pinia/nuxt",
       {
@@ -14,6 +15,11 @@ export default defineNuxtConfig({
       },
     ],
   ],
+  snackbar: {
+    bottom: true,
+    right: true,
+    duration: 5000
+  },
   googleFonts: {
     display: "swap", // 'auto' | 'block' | 'swap' | 'fallback' | 'optional'
     families: {

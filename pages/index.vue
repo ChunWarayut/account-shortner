@@ -65,6 +65,7 @@ import { LinkIcon, ClipboardDocumentListIcon, CursorArrowRaysIcon } from '@heroi
 
 import { storeToRefs } from 'pinia';
 import { useAuthStore } from '~/store/auth';
+const snackbar = useSnackbar();
 
 const router = useRouter();
 
@@ -77,6 +78,10 @@ const logout = () => {
 };
 const copySign = (text) => {
   navigator.clipboard.writeText(text)
+  snackbar.add({
+    type: 'success',
+    text: 'copy to clipboard success'
+  })
 }
 </script>
 
