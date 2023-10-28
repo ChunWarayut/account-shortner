@@ -84,7 +84,7 @@ header {
 }
 
 .mainContent {
-    padding: 16px;
+    padding-top: 16px;
     margin: 3rem auto;
 }
 </style>
