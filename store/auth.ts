@@ -16,7 +16,7 @@ export const useAuthStore = defineStore("auth", {
       this.loading = true;
       this.errorMessage = null;
       const { data, pending }: any = await useFetch(
-        "https://my-account.thpsd.com/api/auth/login",
+        "/api/auth/login",
         {
           method: "post",
           headers: { "Content-Type": "application/json" },

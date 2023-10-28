@@ -1,12 +1,13 @@
 <template>
     <div>
-        <header>
+        <header v-if="authenticated">
             <ul>
                 <li><nuxt-link to="/">Home</nuxt-link></li>
-                <li><nuxt-link to="/about">About</nuxt-link></li>
-                <li v-if="!authenticated" class="loginBtn" style="float: right">
-                    <nuxt-link to="/login">Login</nuxt-link>
-                </li>
+                <li><nuxt-link to="/profile">ข้อมูลส่วนตัว</nuxt-link></li>
+                <li><nuxt-link to="/password">รหัสผ่าน</nuxt-link></li>
+                <!-- <li v-if="!authenticated" class="loginBtn" style="float: right">
+          <nuxt-link to="/login">Login</nuxt-link>
+        </li> -->
                 <li v-if="authenticated" class="loginBtn" style="float: right">
                     <nuxt-link @click="logout">Logout</nuxt-link>
                 </li>
@@ -16,7 +17,7 @@
             <slot />
         </div>
         <footer v-if="authenticated">
-            <h1>Footer</h1>
+            <!-- <h1>Footer</h1> -->
         </footer>
     </div>
 </template>

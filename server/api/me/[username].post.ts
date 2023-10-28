@@ -3,7 +3,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
-  const username = event.context.params.username as string;
+  const username = (event.context.params && event.context.params.username) as string;
 
   const isMatch = await prisma.user.findUnique({
     where: {

@@ -1,4 +1,9 @@
 <script setup lang="ts">
+
+definePageMeta({
+  layout: 'login'
+})
+
 import { ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useAuthStore } from '~/store/auth';

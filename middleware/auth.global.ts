@@ -11,16 +11,16 @@ export default defineNuxtRouteMiddleware(async (to) => {
     // check if value exists
     // todo verify if token is valid, before updating the state
     authenticated.value = true; // update the state to authenticated
-    const decoded = jwtDecode(token.value);
+    const decoded = jwtDecode(token.value) as { username: string };
 
-    const { data, pending }: any = await useFetch(
-      "https://my-account.thpsd.com/api/me/" + decoded.username,
+    const { data }: any = await useFetch(
+      "/api/me/" + decoded.username,
       {
         method: "post",
         headers: { "Content-Type": "application/json" },
       }
     );
-    
+
     user.value = { ...decoded, ...data.value }; // update the state to user
   }
 

@@ -11,7 +11,20 @@
         <dl class="divide-y divide-gray-100">
           <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt class="text-sm font-medium leading-6 text-gray-900">ชื่อ - นามสกุล</dt>
-            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ user?.name }}</dd>
+            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+              <form @submit.prevent="handleSubmit" class="w-full max-w-sm">
+                <div class="flex items-center border-b border-teal-500 py-2">
+                  <input v-model="name"
+                    class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+                    type="text" aria-label="Full name">
+                  <button
+                    class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded"
+                    type="submit">
+                    บันทึก
+                  </button>
+                </div>
+              </form>
+            </dd>
           </div>
           <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt class="text-sm font-medium leading-6 text-gray-900">สถานะ</dt>
@@ -21,27 +34,6 @@
             <dt class="text-sm font-medium leading-6 text-gray-900">เบอร์โทรศัพท์</dt>
             <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ user?.customer?.tel }}</dd>
           </div>
-          <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-            <dt class="text-sm font-medium leading-6 text-gray-900">Attachments</dt>
-            <dd class="mt-2 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-              <ul role="list" class="divide-y divide-gray-100 rounded-md border border-gray-200">
-                <li v-for="({ shortUrl, clicks }) in user?.customer?.urls" @click="copySign(shortUrl)"
-                  class="flex items-center justify-between py-4 pl-4 pr-5 text-sm leading-6">
-                  <div class="flex w-0 flex-1 items-center">
-                    <CursorArrowRaysIcon class="h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
-                    <span class="px-2 flex-shrink-0 text-gray-400">{{ clicks }} clicks</span>
-                    <LinkIcon class="h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
-                    <div class="ml-4 flex min-w-0 flex-1 gap-2">
-                      <a :href="shortUrl" target="_blank" class="truncate font-medium">{{ shortUrl }}</a>
-                    </div>
-                  </div>
-                  <div class="ml-4 flex-shrink-0 cursor-pointer">
-                    <ClipboardDocumentListIcon class="h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
-                  </div>
-                </li>
-              </ul>
-            </dd>
-          </div>
         </dl>
       </div>
     </div>
@@ -49,27 +41,38 @@
 </template>
 
 <script setup>
-import { LinkIcon, ClipboardDocumentListIcon, CursorArrowRaysIcon } from '@heroicons/vue/20/solid'
-
 import { storeToRefs } from 'pinia';
 import { useAuthStore } from '~/store/auth';
 const snackbar = useSnackbar();
 
-const router = useRouter();
+const { user } = storeToRefs(useAuthStore()); // make authenticated state reactive
 
-const { logUserOut } = useAuthStore();
-const { authenticated, user } = storeToRefs(useAuthStore()); // make authenticated state reactive
+const name = ref(user?.value?.name || '');
 
-const logout = () => {
-  logUserOut();
-  router.push('/login');
-};
-const copySign = (text) => {
-  navigator.clipboard.writeText(text)
-  snackbar.add({
-    type: 'success',
-    text: 'copy to clipboard success'
-  })
+const handleSubmit = async (e) => {
+  e.preventDefault()
+
+  try {
+    await useFetch(
+      "/api/profile/" + user?.value?.id,
+      {
+        method: "post",
+        headers: { "Content-Type": "application/json" },
+        body: { name }
+      },
+    );
+
+    snackbar.add({
+      type: 'success',
+      text: 'แก้ไขข้อมูลสำเร็จ'
+    })
+  } catch (error) {
+
+    snackbar.add({
+      type: 'error',
+      text: 'แก้ไขข้อมูลไม่สำเร็จ'
+    })
+  }
 }
 </script>
 
