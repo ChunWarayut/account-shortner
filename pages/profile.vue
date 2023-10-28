@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <div class="container mx-auto px-5">
+    <div class="container mx-auto">
 
       <div class="px-4 sm:px-0">
         <h3 class="text-base font-semibold leading-7 text-gray-900">Personal Information</h3>
